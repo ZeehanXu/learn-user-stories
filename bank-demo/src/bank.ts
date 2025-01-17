@@ -64,6 +64,25 @@ export class Bank implements BankType {
         return account;
     }
 
+    /**
+     * 
+     * @param accountNumber the account number to check
+     * @returns the balance in that account
+     */
+    checkBalance(accountNumber: number):number {
+        const acc = this.findAccountById(accountNumber)
+        if (acc) {
+            return acc.balance;
+        } else {
+            throw new Error('Account not found')
+        }
+    }
+
+    /**
+     * 
+     * @param accountNumber the account number to deposit into
+     * @param amount the amount to deposit
+     */
     deposit(accountNumber: number, amount: number): void {
         if (amount<0) throw new Error('Cannot deposit negative amount');
         const acc = this.findAccountById(accountNumber)
@@ -72,7 +91,6 @@ export class Bank implements BankType {
         } else {
             throw new Error('Account not found')
         }
-        
     }
 
 }
