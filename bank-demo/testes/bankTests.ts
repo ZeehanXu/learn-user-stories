@@ -65,18 +65,29 @@ catch(e) {
 
 //deposit 
 //scenario 1: deposit successful
-// bank.deposit(1234567890, 3000);
+bank.deposit(1234567890, 3000);
+bank.deposit(1234567892, 30);
+if (acc.balance !== 30 || bank.checkBalance(1234567890) !== 8000){
+    console.log("Deposit scenario 1 failed")
+    console.log(acc.balance)
+} else {
+    console.log("Deposit scenario 1 passed")
+}
 
+//scenario 2: check falied due to invalid account
+try {
+    bank.deposit(1,200);
+    console.log('Deposit Scenario 2 failed');
+}
+catch(e) {
+    console.log('Deposit Scenario 2 passed');
+}
 
-// } else {
-//     console.log("Deposit scenario 1 failed")
-// }
-
-// if (acc.id !== 1234567892
-//     || acc.balance !== 0
-//     || acc.id.toString().length !== 10) {
-//     console.log('Create Scenario 1 failed');
-// }
-// else {
-//     console.log('Create Scenario 1 passed');
-// }
+//scenario 3: check falied due to invalid money amount
+try {
+    bank.deposit(1234567892,-200);
+    console.log('Deposit Scenario 3 failed');
+}
+catch(e) {
+    console.log('Deposit Scenario 3 passed');
+}
