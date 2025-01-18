@@ -20,6 +20,7 @@ export class Bank implements BankType {
     }
 
     /**
+     * finds the account in accounts by id
      * 
      * @param id - account id
      * @returns - true if account id ezists, false otherwise
@@ -28,6 +29,12 @@ export class Bank implements BankType {
         return this.accounts.find(account => account.id === id);
     }
 
+    /**
+     * check account number validity
+     * 
+     * @param accountNumber the proposed account number
+     * @returns if it's valid
+     */
     private isAccountNumberInvalid(accountNumber: number): boolean {
         return accountNumber.toString().length !== 10;
     }
@@ -37,6 +44,7 @@ export class Bank implements BankType {
     }
 
     /**
+     * Creates a new account if it passes the constraints
      * 
      * @param username 
      * @param age 
@@ -65,6 +73,7 @@ export class Bank implements BankType {
     }
 
     /**
+     * Check the balance in the given account
      * 
      * @param accountNumber the account number to check
      * @returns the balance in that account
@@ -79,6 +88,7 @@ export class Bank implements BankType {
     }
 
     /**
+     * Deposit a give namount into the given account
      * 
      * @param accountNumber the account number to deposit into
      * @param amount the amount to deposit
@@ -88,6 +98,24 @@ export class Bank implements BankType {
         const acc = this.findAccountById(accountNumber)
         if (acc) {
             acc.balance += amount;
+        } else {
+            throw new Error('Account not found')
+        }
+    }
+
+    /**
+     * Withdraw a given amount from the given account
+     * 
+     * @param accountNumber the account number to deposit into
+     * @param amount the amount to withdraw 
+     */
+    withdraw(accountNumber: number, amount: number): void {
+        if (amount<0 || amount>this.checkBalance(accountNumber)) {
+            throw new Error('Invalid withdrawl amount');
+        }
+        const acc = this.findAccountById(accountNumber)
+        if (acc) {
+            acc.balance -= amount;
         } else {
             throw new Error('Account not found')
         }

@@ -74,7 +74,7 @@ if (acc.balance !== 30 || bank.checkBalance(1234567890) !== 8000){
     console.log("Deposit scenario 1 passed")
 }
 
-//scenario 2: check falied due to invalid account
+//scenario 2: depositfalied due to invalid account
 try {
     bank.deposit(1,200);
     console.log('Deposit Scenario 2 failed');
@@ -83,11 +83,46 @@ catch(e) {
     console.log('Deposit Scenario 2 passed');
 }
 
-//scenario 3: check falied due to invalid money amount
+//scenario 3: depositfalied due to invalid money amount
 try {
     bank.deposit(1234567892,-200);
     console.log('Deposit Scenario 3 failed');
 }
 catch(e) {
     console.log('Deposit Scenario 3 passed');
+}
+
+//withdraw
+//scenario 1: withdraw successful
+bank.withdraw(1234567890, 3000);
+bank.withdraw(1234567892, 30);
+if (acc.balance !== 0 || bank.checkBalance(1234567890) !== 5000){
+    console.log("withdraw scenario 1 failed")
+} else {
+    console.log("withdraw scenario 1 passed")
+}
+
+//scenario 2: withdraw falied due to invalid account
+try {
+    bank.withdraw(1,200);
+    console.log('withdraw Scenario 2 failed');
+}
+catch(e) {
+    console.log('withdraw Scenario 2 passed');
+}
+
+//scenario 3: withdraw falied due to invalid money amount
+try {
+    bank.withdraw(1234567892,-200);
+    console.log('withdraw Scenario 3 failed');
+}
+catch(e) {
+    console.log('withdraw Scenario 3 passed');
+}
+try {
+    bank.withdraw(1234567892,200);
+    console.log('withdraw Scenario 3 failed');
+}
+catch(e) {
+    console.log('withdraw Scenario 3 passed');
 }
